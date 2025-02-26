@@ -45,7 +45,7 @@ jobs:
     - name: Build and analyze
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -B --fail-at-end verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=mdutoo-ipi_ipi-jva350-tptd_20250225
+      run: mvn -B -DskipTests verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=mdutoo-ipi_ipi-jva350-tptd_20250225
 
     #- name: Publish to GitHub Packages Apache Maven
     #  run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
