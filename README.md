@@ -44,12 +44,20 @@ https://git-scm.com/download/win ). Quelques liens :
 - vérifiez que le workflow correspondant a été committé, et qu'un job de build a été lancé
 - suivre les bonnes pratiques : à chaque commit, si son build casse, ne pas le laisser dans cet état !
 
+FAQ / Gotchas :
+- erreur The Dependency graph is disabled for this repository. Please enable it before submitting snapshots
+  =>
+  https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/configuring-the-dependency-graph
+  - Settings > Code security and analysis > then next to "Dependency Graph", click Enable.
+  - OU supprimer dans le workflow la partie "Update dependency graph"
+
+
 ### Plateforme d'évaluation de la qualité
 
 - Connectez-vous à https://sonarcloud.io/ en vous identifiant à l'aide de votre compte Github
 - Créez un projet Sonar Cloud pour votre repository forké :
   - New Project > sélectionnez votre repoisitory forké
-  - Analyse new project > Create a project manually > Créer un token comme indiqué et copiez-le dans un fichier temporaire
+  - Analyse new project > Create a project manually (et non pas Automatic analysis) > Créer un token comme indiqué et copiez-le dans un fichier temporaire
   - Paramétrez l'analyse avec les actions Github comme indiqué
   - ajoutez dans le workflow Github la configuration de l'analyse Sonar Cloud du code
 - Rédigez **ci-dessous** une courte analyse du premier rapport produit par Sonar (métriques, état général...) :
@@ -63,10 +71,11 @@ Dans tous les cas :
 - créez la classe de test si nécessaire, et une ou plusieurs méthodes de test
 - les tests doivent couvrir autant de cas que possible
 - vous pouvez corriger le code de la méthode testée si nécessaire
+- dans tous les cas, assurez-vous que le build passe ! expérimentez-vous des cas où ce n'est pas le cas ? quelle leçons en tirer ?
 
 Questions :
 - Tests unitaires simples : Testez unitairement la méthode `SalarieAideADomicile.aLegalementDroitADesCongesPayes()`.
-Pensez aux cas aux limites (quand on fait évoluer les valeurs en entrée, le moment où elles font changer le résultat).
+Pensez aux cas aux limites / cas aux bornes / edge cases (quand on fait évoluer les valeurs en entrée, le moment où elles font changer le résultat).
 Sa javadoc contient une copie de ses spécifications métier (ce à quoi elle est sensée
 servir), tirée de https://femme-de-menage.ooreka.fr/comprendre/conges-payes-femme-de-menage .
 - Tests paramétrés : Testez par une méthode de test paramétrée la méthode `SalarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage()`.
